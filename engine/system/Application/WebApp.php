@@ -21,7 +21,7 @@
 			$method = "action_" . $this->route[1];
 			if(!method_exists($class, $method)) { return $this->error(404); } 
 			
-			$this->output( call_user_method_array($method, $class, $route) );
+			$this->output( call_user_func_array( array($class, $method), $this->route) );
 			
 			foreach($this->cookie as $k => $v)
 			{
