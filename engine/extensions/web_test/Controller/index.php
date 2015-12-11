@@ -1,9 +1,9 @@
 <?php
 	namespace Controller;
 	
-	class index
+	class Index
 	{
-		function action_index()
+		function actionIndex()
 		{
 			return "<h3>Fructum works! This controller is placed in following file: <b>". __FILE__ ."</b></h3> {$_SERVER['SERVER_SIGNATURE']}";
 		}

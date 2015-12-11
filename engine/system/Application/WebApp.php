@@ -15,10 +15,10 @@
 			$route = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
 			$this->route = $this->router($route);
 			
-			$classname = "Controller\\" . $this->route[1];
+			$classname = "Controller\\" . ucfirst($this->route[1]);
 			if(!class_exists($classname, true)) { return $this->error(404); }
 			$class = new $classname;
-			$method = "action_" . $this->route[1];
+			$method = "action" . ucfirst($this->route[2]);
 			if(!method_exists($class, $method)) { return $this->error(404); } 
 			
 			$this->output( call_user_func_array( array($class, $method), $this->route) );
