@@ -1,5 +1,5 @@
 <?php
-	namespace Driver;
+	namespace Application;
 	
 	class Application
 	{
