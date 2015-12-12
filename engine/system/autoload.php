@@ -1,13 +1,11 @@
 <?php
 	
-	/*
-	** FRUCTUM Autoload
-	**
-	**	This file is part of FRUCTUM Framework by Disaytid
-	** 	
-	** @last_edit 08.12.2015 by Mike
-	** @comment Autoloader
-	*/
+	/**
+	 * Fructum autoloader inits root and starts core
+	 *
+	 * @version 1.0
+	 * @author Mike Chip
+	 */
 	
 	define('Fructum\ROOT', __DIR__);
 		

@@ -1,13 +1,28 @@
 <?php
+	/**
+	 * Web application handler
+	 * 
+	 * @author Mike Chip
+	 * @version 1.1
+	 */
+	
 	namespace Application;
 	
 	class WebApp extends \Fructum\Instancer
 	{
-		protected $buffer = '';
+		protected $buffer = ''; // output buffer
 		protected $cookie = array();
 		protected $route = array();
 		protected $headers = array();
 		
+		/**
+		 * Gets all cookies, URL query, set controller and call it. 
+		 * 
+		 * Sends new cookies and headers to client, prints HTML from output buffer
+		 *
+		 * @return void
+		 *
+		 */
 		public function init()
 		{
 			$this->cookie = isset($_COOKIE) ? $_COOKIE : array();
@@ -35,22 +50,46 @@
 			print($this->buffer);
 		}
 		
-		public function header($h)
+		/**
+		 * Sends header to client
+		 *
+		 * @param string $header
+		 * @return void
+		 */
+		public function header($header)
 		{
-			$this->headers[$h] = $h;
+			$this->headers[$h] = $header;
 		}
 		
+		/**
+		 * Set cookie for client
+		 * 
+		 * @param string $name
+		 * @param string $value
+		 * @return bool
+		 */
 		public function set_cookie($name, $value)
 		{
 			$this->cookie[$name] = $value;
 			return ($this->cookie[$name] == $value);
 		}
 		
+		/**
+		 * Get cookie by name 
+		 *
+		 * @param string $name
+		 * @return mixed
+		 */
 		public function get_cookie($name)
 		{
 			return isset($this->cookie[$name]) ? $this->cookie[$name] : null;
 		}
 		
+		/**
+		 * Saves HTML to output buffer
+		 *
+		 * @return void
+		 */
 		public function output($data)
 		{
 			if(is_bool($data) and $data === false) { $this->buffer = ''; }
@@ -58,11 +97,22 @@
 			$this->buffer = $this->buffer . $data;
 		}
 		
+		/**
+		 * Gets client's request string
+		 * 
+		 * @return array
+		 */
 		public function input()
 		{
 			return isset($_REQUEST) ? $_REQUEST : array();
 		}
 		
+		/**
+		 * Gets needed controller, action and other data from client
+		 *
+		 * @param string $route
+		 * @return array
+		 */
 		public function router($route) 
 		{
 			$urlArray = @explode("/", $route);
@@ -81,8 +131,14 @@
 			return $urlArray;
 		}
 		
+		/**
+		 * Print error to user 
+		 *
+		 * @param int $code
+		 * @return void
+		 */
 		public function error($code)
 		{
-			echo $code;
+			//
 		}
 	}
