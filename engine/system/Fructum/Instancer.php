@@ -9,7 +9,7 @@
 	
 	class Instancer
 	{
-		protected static $i = null;
+		protected static $i = array();
 		
 		/**
 		 * Init or use class instance
@@ -18,11 +18,13 @@
 		 */
 		public static function i()
 		{
-			if(self::$i == null)
+			$class = get_called_class();
+			
+			if(!isset(self::$i[$class]))
 			{
-				$class = get_called_class();
-				self::$i = new $class;
+				self::$i[$class] = new $class;
 			}
-			return self::$i;
+			
+			return self::$i[$class];
 		}
 	}
