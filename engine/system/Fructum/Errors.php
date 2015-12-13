@@ -22,7 +22,8 @@
 		 */
 		public static function error_handler($errno, $errstr, $errfile, $errline, $errcontext)
 		{
-			throw new Exception($errstr);
+			$text = "Error #{$errno}: {$errstr} [File {$errfile} in line {$errline}]";
+			throw new Exception($text);
 		}
 		
 		/**
@@ -32,7 +33,7 @@
 		*/
 		public static function exception_handler($e)
 		{
-			//die(nl2br($e->__toString()));
+			die(nl2br($e->__toString()));
 		}
 		
 	}
