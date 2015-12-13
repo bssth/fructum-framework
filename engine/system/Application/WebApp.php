@@ -139,6 +139,9 @@
 		 */
 		public function error($code)
 		{
-			//
+			$exception = new Exception("Error $code");
+			$exception->ex_code = $code;
+			$exception->called_by = __CLASS__;
+			throw $exception;
 		}
 	}

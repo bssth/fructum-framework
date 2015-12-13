@@ -2,6 +2,7 @@
 	/**
 	 * Controller example
 	 */
+	 
 	namespace Controller;
 	
 	class Index
