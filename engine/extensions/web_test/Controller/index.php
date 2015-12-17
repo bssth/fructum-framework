@@ -5,6 +5,8 @@
 	 
 	namespace Controller;
 	
+	use Application\Benchmark;
+
 	class Index
 	{
 		/**
@@ -13,6 +15,12 @@
 		 */
 		function actionIndex()
 		{
-			return "<h3>Fructum works! This controller is placed in following file: <b>". __FILE__ ."</b></h3> {$_SERVER['SERVER_SIGNATURE']}";
+			$benchmark = Benchmark::i();
+			$i = 0;
+			while($i < 1000){
+				echo $i."<br>";
+				$i++;
+			}
+			return "<h3>Fructum works! This controller is placed in following file: <b>". __FILE__ ."</b></h3> {$_SERVER['SERVER_SIGNATURE']} <br>Est. time: ".$benchmark->est_time();
 		}
 	}
