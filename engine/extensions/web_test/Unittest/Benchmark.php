@@ -3,7 +3,7 @@
  * Benchmark - a class to test the speed and performance of application
  */
 
-namespace Application;
+namespace Unittest;
 
 
 class Benchmark extends \Fructum\Instancer
