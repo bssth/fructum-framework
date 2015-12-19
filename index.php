@@ -1,13 +1,12 @@
 <?php
-
-	/*
-	** FRUCTUM Input
-	**
-	**	This file is part of FRUCTUM Framework by Disaytid
-	** 	
-	** @last_edit 08.12.2015 by Mike
-	** @comment Framework input point
-	*/
+	/**
+	 *	
+	 *	Input point
+	 *	This script creates web application instance
+	 *	
+	 *	@version 1.0
+	 */
+	
 	
 	require_once('engine/system/autoload.php');
 
