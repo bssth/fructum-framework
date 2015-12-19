@@ -58,7 +58,7 @@
 		 */
 		public function header($header)
 		{
-			$this->headers[$h] = $header;
+			$this->headers[$header] = $header;
 		}
 		
 		/**
@@ -115,6 +115,7 @@
 		 */
 		public function router($route) 
 		{
+			if(strpos($route, '?') != false and strpos($route, '?') >= 0) { $route = trim(strstr($route, '?', true), '?'); }
 			$urlArray = @explode("/", $route);
 			if (empty($urlArray[1])) 
 			{

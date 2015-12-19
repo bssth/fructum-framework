@@ -78,7 +78,8 @@
 		 */
 		public function where()
 		{
-			$arr = (count(func_get_args()) > 1) ? implode(' AND ', func_get_args()) : func_get_arg(1);
+			if(func_get_args() <= 0) { return null; }
+			$arr = (!is_array(func_get_arg(0))) ? implode(' AND ', func_get_args()) : func_get_arg(0);
 			$this->_current_row = $this->_db->getRow( 'SELECT * FROM ?n WHERE ?p', $this->_current_table, $arr );
 			return $this;
 		}
