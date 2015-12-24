@@ -125,6 +125,16 @@
 		}
 		
 		/**
+		 * Just executes query
+		 *
+		 * @param string $query
+		 */
+		public function query($query)
+		{
+			return $this->_db->query($query);
+		}
+		
+		/**
 		 * Advanced multiple selecting. Every criteria in different argument. For example: ->where('time >= 1', 'id < 5')
 		 */
 		public function wheres()
@@ -140,6 +150,18 @@
 		public function as_array()
 		{
 			return $this->_current_row;
+		}
+		
+		/**
+		 * Executes method of SafeMySQL class. First param is method, others - arguments
+		 */
+		public function method()
+		{
+			$data = func_get_args();
+			if(!isset($data[0])) { return; }
+			$func = $data[0];
+			unset($data[0]);
+			return call_user_func_array( array($this->_db, $func), $data );
 		}
 
 	}
