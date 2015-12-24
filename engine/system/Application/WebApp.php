@@ -25,6 +25,10 @@
 		 */
 		public function init()
 		{
+			if(\Fructum\Config::debug !== true) {
+				set_exception_handler( array($this, 'exception_handler') );
+			}
+
 			$this->cookie = isset($_COOKIE) ? $_COOKIE : array();
 			$this->headers = array();
 			$route = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
@@ -133,6 +137,14 @@
 		}
 		
 		/**
+		 * Web Exception Handler
+		 */
+		public function exception_handler($e)
+		{
+			$this->error(500);
+		}
+		
+		/**
 		 * Print error to user 
 		 *
 		 * @param int $code
@@ -140,9 +152,6 @@
 		 */
 		public function error($code)
 		{
-			$exception = new Exception("Error $code");
-			$exception->ex_code = $code;
-			$exception->called_by = __CLASS__;
-			throw $exception;
+			die( (new \Templater\Native($code))->render() );
 		}
 	}
