@@ -31,6 +31,21 @@
 			spl_autoload_register('Fructum\Core::autoloader');
 			set_error_handler('Fructum\Errors::error_handler');
 			set_exception_handler('Fructum\Errors::exception_handler');
+			register_shutdown_function('\Fructum\Core::shutdown');
+			
+			session_write_close();
+			if(Config::session_handler != 'native' and strlen(Config::session_handler))
+			{
+				$n = Config::session_handler;
+				$s = new $n;
+				if(@$s->handled != true) { 
+					session_set_save_handler( $s, true ); 
+				} 
+			}
+			
+			session_start();
+			ignore_user_abort();
+			set_time_limit(Config::script_time_limit);
 		}
 		
 		/**
@@ -106,5 +121,13 @@
 			}
 			
 			return self::$root;
+		}
+		
+		/**
+		 * Handles shutting down
+		 */
+		public static function shutdown()
+		{
+			
 		}
 	}

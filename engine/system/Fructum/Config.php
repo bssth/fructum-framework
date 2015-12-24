@@ -11,10 +11,14 @@
 	{
 		
 		const cache = '\Memcache';
+		
 		const sql_host = '127.0.0.1';
 		const sql_user = 'test2';
 		const sql_password = 'test2';
 		const sql_database = 'test2';
 		const sql_unique = 'id';
 		
+		const session_handler = 'native';
+		const script_time_limit = 0;
+		const debug = true;
 	}
