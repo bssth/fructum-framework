@@ -38,7 +38,7 @@
 			if(!class_exists($classname, true)) { return $this->error(404); }
 			$class = new $classname;
 			$method = "action" . ucfirst($this->route[2]);
-			if(!method_exists($class, $method)) { return $this->error(404); } 
+			if(!method_exists($class, $method) and !method_exists($class, '__call')) { return $this->error(404); } 
 			
 			$this->output( call_user_func_array( array($class, $method), $this->route) );
 			
