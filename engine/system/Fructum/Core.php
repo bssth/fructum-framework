@@ -14,7 +14,7 @@
 	class Core
 	{
 		// Core constants
-		const SEPARATOR = '\\';
+		const SEPARATOR = '/';
 		const EXT = '.php';
 		const SYS = 'system';
 		const HOOKS = 'hooks';
@@ -28,9 +28,9 @@
 		public static function init()
 		{
 			self::root();
-			spl_autoload_register('Fructum\Core::autoloader');
-			set_error_handler('Fructum\Errors::error_handler');
-			set_exception_handler('Fructum\Errors::exception_handler');
+			spl_autoload_register('\Fructum\Core::autoloader');
+			set_error_handler('\Fructum\Errors::error_handler');
+			set_exception_handler('\Fructum\Errors::exception_handler');
 			register_shutdown_function('\Fructum\Core::shutdown');
 			
 			session_write_close();
@@ -56,6 +56,7 @@
 		 */
 		public static function autoloader($class)
 		{
+			$class = str_replace('\\', '/', $class);
 			self::hooks_autoloader($class);
 			self::system_autoloader($class);
 			self::extensions_autoloader($class);
