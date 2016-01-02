@@ -11,7 +11,7 @@
 	
 	class Native
 	{
-		protected $path = '';
+		public $path = '';
 		protected $vars = array();
 	
 		/**
