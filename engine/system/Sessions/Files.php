@@ -91,6 +91,15 @@
 		 */
 		public function gc($maxlifetime)
 		{
+		`	/*$files = scandir( $this->savePath );
+			foreach($files as $f) 
+			{
+				if(!strstr($f, '.session')) { continue; }
+				
+				if( filectime($this->savePath . $f)+$maxlifetime < time() ) {
+					unlink($this->savePath . $f);
+				}
+			}*/
 			return true;
 		}
 		
