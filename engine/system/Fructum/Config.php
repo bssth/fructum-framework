@@ -18,6 +18,9 @@
 		const sql_database = 'test2';
 		const sql_unique = 'id';
 		
+		const cache_host = '127.0.0.1';
+		const cache_port = '11211';
+		
 		const session_handler = 'native';
 		const script_time_limit = 0;
 		const debug = true;
