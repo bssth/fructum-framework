@@ -23,7 +23,12 @@
 		const cache_timeout = 30;
 		const cache_session_timeout = 68400;
 		
+		const disable_sessions = false;
 		const session_handler = 'native';
+		
 		const script_time_limit = 0;
+		const script_ignore_abort = true;
+		const core_user_root = false;
 		const debug = true;
+		
 	}

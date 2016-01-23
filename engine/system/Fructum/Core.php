@@ -11,6 +11,8 @@
 	 
 	namespace Fructum;
 	
+	use \Fructum\Config as Config;
+	
 	class Core
 	{
 		// Core constants
@@ -34,17 +36,23 @@
 			register_shutdown_function('\Fructum\Core::shutdown');
 			
 			session_write_close();
-			if(Config::session_handler != 'native' and strlen(Config::session_handler))
-			{
-				$n = Config::session_handler;
-				$s = new $n;
-				if(@$s->handled != true) { 
-					session_set_save_handler( $s, true ); 
-				} 
+			
+			if(Config::disable_sessions != true) {
+				if(Config::session_handler != 'native' and strlen(Config::session_handler))
+				{
+					$n = Config::session_handler;
+					$s = new $n;
+					if(@$s->handled != true) { 
+						session_set_save_handler( $s, true ); 
+					} 
+				}
+				session_start();
 			}
 			
-			session_start();
-			ignore_user_abort();
+			if(Config::script_ignore_abort == true) {
+				ignore_user_abort();
+			}
+			
 			set_time_limit(Config::script_time_limit);
 		}
 		
