@@ -34,7 +34,7 @@
 			
 			if(!is_object(self::$i))
 			{
-				$config = is_array(self::$config) ? self::$config : array(\Fructum\Config::cache_host, \Fructum\Config::cache_port, 30);
+				$config = is_array(self::$config) ? self::$config : array(\Fructum\Config::cache_host, \Fructum\Config::cache_port, \Fructum\Config::cache_timeout);
 				$class = self::$driver;
 				self::$i = new $class;
 				self::connect($config);
