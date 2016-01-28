@@ -1,3 +1,6 @@
 engine/hooks/Controller/Index.php
 *.rar
 *.zip
+e/tests/index.php
+e/extensions/index.php
+e/packs/index.php
