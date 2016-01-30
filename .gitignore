@@ -4,3 +4,4 @@ engine/hooks/Controller/Index.php
 e/tests/index.php
 e/extensions/index.php
 e/packs/index.php
+engine/extensions/test/Controller/Index.php
