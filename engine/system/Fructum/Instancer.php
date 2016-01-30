@@ -22,6 +22,7 @@
 			
 			if(!isset(self::$i[$class]))
 			{
+				\Fructum\EventListener::invoke('new_instance', $class);
 				self::$i[$class] = new $class;
 			}
 			

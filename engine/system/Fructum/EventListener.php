@@ -20,6 +20,7 @@
 		 */
 		public static function getEvents()
 		{
+			\Fructum\EventListener::invoke('events_got');
 			return array_keys(self::$events);
 		}
 		
@@ -30,15 +31,19 @@
 		 */
 		public static function invoke($event)
 		{
+			// \Fructum\EventListener::invoke('test');
 			if(!isset(self::$events[$event])) { return null; }
 			foreach(self::$events[$event] as $n => $func) {
 				call_user_func_array($func, func_get_args());
+			}
+			if($event != 'event_added' and $event != 'event_invoked') {
+				\Fructum\EventListener::invoke('event_invoked', $event);
 			}
 			return count(self::$events[$event]);
 		}
 		
 		/**
-		 * Adds event handler 
+		 * Adds event handler
 		 * @param string $event 
 		 * @param callable $func 
 		 */
@@ -46,6 +51,9 @@
 		{
 			if(is_string($event) and is_callable($func)) {
 				self::$events[$event][] = $func;
+				if($event != "event_added") { 
+					\Fructum\EventListener::invoke('event_added', $event);
+				}
 				return count(self::$events[$event]);
 			}
 			else {

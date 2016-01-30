@@ -54,6 +54,7 @@
 		public function set($key, $value)
 		{
 			$this->__set($key, $value);
+			\Fructum\EventListener::invoke('tpl_set', $key, $value);
 			return $this;
 		}
 		
@@ -70,6 +71,7 @@
 			}
 			ob_start(NULL, 0, PHP_OUTPUT_HANDLER_CLEANABLE | PHP_OUTPUT_HANDLER_FLUSHABLE | PHP_OUTPUT_HANDLER_REMOVABLE);
 			require_once($this->path);
+			\Fructum\EventListener::invoke('tpl_render', $this->vars);
 			return ob_get_clean();
 		}
 	}

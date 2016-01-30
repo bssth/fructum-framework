@@ -22,6 +22,7 @@
 		 */
 		public static function error_handler($errno, $errstr, $errfile, $errline, $errcontext)
 		{
+			\Fructum\EventListener::invoke('error', func_get_args());
 			throw new Exception( "Error #{$errno}: {$errstr} [File {$errfile} in line {$errline}]" );
 		}
 		

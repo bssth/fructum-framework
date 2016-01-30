@@ -62,6 +62,7 @@
 		 */
 		public function header($header)
 		{
+			\Fructum\EventListener::invoke('header_added', $header);
 			$this->headers[$header] = $header;
 		}
 		
@@ -75,6 +76,7 @@
 		public function set_cookie($name, $value)
 		{
 			$this->cookie[$name] = $value;
+			\Fructum\EventListener::invoke('cookie_set', $name, $value);
 			return ($this->cookie[$name] == $value);
 		}
 		
@@ -98,6 +100,7 @@
 		{
 			if(is_bool($data) and $data === false) { $this->buffer = ''; }
 			if(!is_string($data)) { return; }
+			\Fructum\EventListener::invoke('buffer_add', $data);
 			$this->buffer = $this->buffer . $data;
 		}
 		
@@ -133,6 +136,7 @@
 			{
 				$urlArray = array(false, 'index', 'index');
 			}
+
 			return $urlArray;
 		}
 		
@@ -152,6 +156,7 @@
 		 */
 		public function error($code)
 		{
+			\Fructum\EventListener::invoke('web_error', $code);
 			die( (new \Templater\Native($code))->render() );
 		}
 	}

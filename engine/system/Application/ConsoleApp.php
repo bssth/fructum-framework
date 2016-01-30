@@ -16,6 +16,7 @@
 		{
 			$a = new \Handler\Console;
 			$a->start();
+			\Fructum\EventListener::invoke('console_init');
 		}
 		
 		/**

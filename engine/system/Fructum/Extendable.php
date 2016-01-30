@@ -22,6 +22,7 @@
 			if(isset($this->_functions[$fname])) { throw new Exception("Trying to rewrite function, aborting"); }
 			
 			$this->_functions[$fname] = $function;
+			\Fructum\EventListener::invoke('extendable', $this, $fname);
 		}
 		
 		/** 

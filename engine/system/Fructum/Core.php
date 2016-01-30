@@ -54,6 +54,8 @@
 			}
 			
 			set_time_limit(Config::script_time_limit);
+			
+			\Fructum\EventListener::invoke('ready');
 		}
 		
 		/**
@@ -137,6 +139,6 @@
 		 */
 		public static function shutdown()
 		{
-			
+			\Fructum\EventListener::invoke('shutdown');
 		}
 	}
