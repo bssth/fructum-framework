@@ -24,7 +24,7 @@
 		}
 		
 		/**
-		 * Invokes all event handlers
+		 * Invokes all event handlers and returns their count
 		 * @param string $event 
 		 * @return integer
 		 */
