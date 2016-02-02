@@ -65,8 +65,10 @@
 		 */
 		public function render()
 		{
-			foreach($this->vars as $k => $v)
-			{
+			if(!file_exists($this->path)) {
+				throw new \Fructum\Exception("Template not found in {$this->path}");
+			}
+			foreach($this->vars as $k => $v) {
 				$$k = $v;
 			}
 			ob_start(NULL, 0, PHP_OUTPUT_HANDLER_CLEANABLE | PHP_OUTPUT_HANDLER_FLUSHABLE | PHP_OUTPUT_HANDLER_REMOVABLE);
