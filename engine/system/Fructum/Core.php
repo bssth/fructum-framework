@@ -18,6 +18,7 @@
 		// Core constants
 		const SEPARATOR = '/';
 		const EXT = '.php';
+		const MODS = 'modules';
 		const SYS = 'system';
 		const HOOKS = 'hooks';
 		const EXT_DIR = 'extensions';
@@ -69,7 +70,7 @@
 			$class = str_replace('\\', '/', $class);
 			self::hooks_autoloader($class);
 			self::system_autoloader($class);
-			self::extensions_autoloader($class);
+			self::extensions_autoloader($class);			
 		}
 		
 		/**
@@ -101,6 +102,29 @@
 		}
 		
 		/**
+		 * Module`s classes loader
+		 *
+		 * @param string $class
+		 * @return void
+		 *
+		 */
+		protected static function modules_autoloader($class, $ext)
+		{ 
+			if(class_exists($class, false)) { return; }
+			
+			$dir = self::root() . self::SEPARATOR . self::MODS . self::SEPARATOR;
+			foreach(scandir($dir) as $f)
+			{
+				if($f == '.' or $f == '..') { continue; }
+				if(substr($f, 0, strlen($ext)) != $ext) { 
+					continue; 
+				}
+				if(!file_exists($dir . self::SEPARATOR . $f . self::SEPARATOR . $class . self::EXT)) { continue; }
+				@include_once($dir . self::SEPARATOR . $f . self::SEPARATOR . $class . self::EXT);
+			}
+		}
+		
+		/**
 		 * Extension`s classes loader
 		 *
 		 * @param string $class
@@ -114,8 +138,14 @@
 			$dir = self::root() . self::SEPARATOR . self::EXT_DIR . self::SEPARATOR;
 			foreach(scandir($dir) as $f)
 			{
-				if(!file_exists($dir . self::SEPARATOR . $f . self::SEPARATOR . $class . self::EXT)) { continue; }
-				@include_once($dir . self::SEPARATOR . $f . self::SEPARATOR . $class . self::EXT);
+				if($f == '.' or $f == '..') { continue; }
+				
+				if(!file_exists($dir . self::SEPARATOR . $f . self::SEPARATOR . $class . self::EXT)) { 
+					self::modules_autoloader($class, $f);  
+				}
+				else {
+					@include_once($dir . self::SEPARATOR . $f . self::SEPARATOR . $class . self::EXT); 
+				}
 			}
 		}
 		
