@@ -172,7 +172,12 @@
 			\Fructum\EventListener::invoke('shutdown');
 			
 			if(Config::debug == true) {
-				echo call_user_func(Config::debugger . '::asHTML');
+				try {
+					echo call_user_func(Config::debugger . '::asHTML');
+				}
+				catch(Exception $e) {
+					echo $e->__toString();
+				}
 			}
 		}
 	}
