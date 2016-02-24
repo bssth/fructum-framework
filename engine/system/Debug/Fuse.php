@@ -11,25 +11,49 @@
 	
 	class Fuse
 	{
-		
+		/** 
+		 * Array $data stores all Fuse Debugger's data
+		 */
 		private static $data = array();
 		
+		/** 
+		 * Returns all debug data as HTML (using debug.html template)
+		 * @return string
+		 */
 		public static function asHTML()
 		{
 			return (new \Templater\Native('debug'))->set('array', self::$data)->render();
 		}
 		
+		/**
+		 * Returns all debug data as array 
+		 * @return array 
+		 */
 		public static function getData()
 		{
 			return is_array(self::$data) ? self::$data : array();
 		}
 		
+		/**
+		 * Sets variable 
+		 *
+		 * @param string $var
+		 * @param mixed $val
+		 * @return boolean
+		 */
 		public static function setData($var, $val)
 		{
 			self::$data[$var] = $val;
 			return (self::$data[$var] === $val);
 		}
 		
+		/**
+		 * Appends data to array
+		 *
+		 * @param string $var
+		 * @param mixed $val
+		 * @return boolean
+		 */
 		public static function addData($var, $val)
 		{
 			if(is_array($val))
