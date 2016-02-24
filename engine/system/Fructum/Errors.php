@@ -19,7 +19,7 @@
 		 * @param string $errfile
 		 * @param int $errline
 		 * @param mixed $errcontext
-		 */
+		 */ 
 		public static function error_handler($errno, $errstr, $errfile, $errline, $errcontext)
 		{
 			\Fructum\EventListener::invoke('error', func_get_args());
@@ -33,9 +33,7 @@
 		*/
 		public static function exception_handler($e)
 		{
-			if(Config::debug === true) {
-				die(nl2br($e->__toString()));
-			}
+			\Debug\Fuse::addData('errors', $e->__toString());
 		}
 		
 	}
