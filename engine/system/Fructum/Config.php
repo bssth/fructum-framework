@@ -25,10 +25,10 @@
 		
 		const disable_sessions = false; // don't use sessions 
 		const session_handler = 'native'; // session handlers (set 'native' if want to use default PHP handler)
-		
 		const script_time_limit = 0; // script executing time limit 
 		const script_ignore_abort = true; // ignore user aborting (for web apps)
 		const core_user_root = false; // only for debug 
 		const debug = true; // show errors and exception texts
+		const debugger = '\Debug\Fuse'; // debugger class (extends \Debug\Template)
 		
 	}

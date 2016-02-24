@@ -1,0 +1,42 @@
+<?php
+	$array['_SERVER'] = $_SERVER;
+	$array['_REQUEST'] = $_REQUEST;
+?>
+<div id='fructum-fuse-debugger' style='display: none;'>
+	<font size='1'>
+		<table class='xdebug-error xe-uncaught-exception' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
+			<tr><th align='left' bgcolor='#f57900' colspan='5'><h3>Fuse Debugger</h3></th></tr>
+			<?php			
+				if(isset($array['errors'])) {
+					foreach($array['errors'] as $k => $v) {
+						echo "<tr><th align='left' bgcolor='#f57900' colspan='5'><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> " . $v . "</th></tr>";
+					}
+				}
+			?>
+			<tr>
+				<?php
+					foreach($array as $k => $v) {
+						echo '<tr><th align="left" bgcolor="#f57900" colspan="5"><span>' . $k . '</span> => ';
+						var_dump($v);
+						echo '</th></tr>';
+					}
+				?>
+			</tr>
+			<tr></tr>
+			<tr><th align='left' bgcolor='#e9b96e' colspan='5'><h2>Call Stack</h2></th></tr>
+			<?php
+				foreach(debug_backtrace() as $k => $v) {
+					echo "<tr><td bgcolor='#eeeeec' align='left'>";
+					var_dump($v);
+					echo "";
+				}
+			?>
+		</table>
+	</font>
+	<hr>
+</div>
+<script>
+	if( confirm("Show debug information?") ) {
+		document.getElementById('fructum-fuse-debugger').style.display = 'block';
+	}
+</script>

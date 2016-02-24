@@ -170,5 +170,9 @@
 		public static function shutdown()
 		{
 			\Fructum\EventListener::invoke('shutdown');
+			
+			if(Config::debug == true) {
+				echo call_user_func(Config::debugger . '::asHTML');
+			}
 		}
 	}
