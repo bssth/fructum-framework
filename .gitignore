@@ -1,7 +1,8 @@
-engine/hooks/Controller/Index.php
+engine/hooks/*
 *.rar
 *.zip
 e/tests/index.php
 e/extensions/index.php
 e/packs/index.php
-engine/extensions/test/Controller/Index.php
+engine/extensions/*
+engine/modules/*
