@@ -16,12 +16,21 @@
 		 */
 		private static $data = array();
 		
+		/**
+		 * If true, asHTML() method returns empty string 
+		 */
+		public static $empty_html = false;
+		
 		/** 
 		 * Returns all debug data as HTML (using debug.html template)
 		 * @return string
 		 */
 		public static function asHTML()
 		{
+			if(self::$empty_html == true) {
+				return '';
+			}
+			
 			return (new \Templater\Native('debug'))->set('array', self::$data)->render();
 		}
 		
