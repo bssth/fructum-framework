@@ -34,6 +34,10 @@
 		public static function exception_handler($e)
 		{
 			\Debug\Fuse::addData('errors', $e->__toString());
+			
+			if(Config::debug == true) {
+				echo $e->__toString();
+			}
 		}
 		
 	}
