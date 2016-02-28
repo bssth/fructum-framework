@@ -73,9 +73,9 @@
 				self::$data[$var][] = $val;
 				return true;
 			}
-			elseif(is_numeric($val) and (is_numeric(self::$data[$var]) or !isset(self::$data[$var])))
+			elseif(is_numeric($val))
 			{
-				self::$data[$var] += $val;
+				self::$data[$var] = isset(self::$data[$var]) ? self::$data[$var]+$val : $val;
 				return true;
 			}
 			elseif(is_scalar($val))

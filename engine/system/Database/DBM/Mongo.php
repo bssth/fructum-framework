@@ -9,6 +9,7 @@
 	{
 		
 		public $i = null;
+		protected $table = null;
 		
 		public function __construct()
 		{
@@ -22,33 +23,38 @@
 		
 		public function table($k)
 		{
-			$this->i = $this->i->$k;
+			$this->table = $k;
 			return $this;
 		}
 		
 		public function findOne($criteria)
 		{
-			return $this->i->findOne($criteria);
+			\Debug\Fuse::addData('mongo_queries', 1);
+			return $this->i->{$this->table}->findOne($criteria);
 		}
 		
 		public function find($criteria)
 		{
-			return $this->i->find($criteria);
+			\Debug\Fuse::addData('mongo_queries', 1);
+			return $this->i->{$this->table}->find($criteria);
 		}
 		
 		public function insert($row)
 		{
-			return $this->i->insert($criteria);
+			\Debug\Fuse::addData('mongo_queries', 1);
+			return $this->i->{$this->table}->insert($row);
 		}
 		
 		public function update($cr, $data)
 		{
-			return $this->i->update($cr, $data);
+			\Debug\Fuse::addData('mongo_queries', 1);
+			return $this->i->{$this->table}->update($cr, $data);
 		}
 		
 		public function remove($cr)
 		{
-			return $this->i->remove($cr);
+			\Debug\Fuse::addData('mongo_queries', 1);
+			return $this->i->{$this->table}->remove($cr);
 		}
 		
 	}
