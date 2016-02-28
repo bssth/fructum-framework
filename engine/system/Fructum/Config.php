@@ -11,6 +11,7 @@
 	{
 		
 		const cache = '\Memcache'; // cache class name 
+		const db_type = 'Mongo'; // for DBManager
 		
 		const sql_host = '127.0.0.1'; // MySQL host
 		const sql_user = 'test2'; // MySQL username
