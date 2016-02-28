@@ -36,7 +36,7 @@
 			\Debug\Fuse::addData('errors', $e->__toString());
 			
 			if(Config::debug == true) {
-				echo $e->__toString();
+				die(nl2br($e->__toString()));
 			}
 		}
 		
