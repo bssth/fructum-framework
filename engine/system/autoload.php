@@ -7,8 +7,8 @@
 	 * @author Mike Chip
 	 */
 	
-	define('\Fructum\ROOT', __DIR__ . '/../');
+	define('\Fructum\ROOT', __DIR__ . '/../'); // defines engine root 
 		
-	require_once(__DIR__ . '/Fructum/Core.php');
+	require_once(__DIR__ . '/Fructum/Core.php'); // loading core 
 		
-	\Fructum\Core::init();
+	\Fructum\Core::init(); // init core

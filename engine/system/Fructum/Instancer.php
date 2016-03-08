@@ -9,7 +9,8 @@
 	
 	class Instancer
 	{
-		protected static $i = array();
+	
+		protected static $i = array(); // because of issue, all instancer instances are stored in original static class
 		
 		/**
 		 * Init or use class instance
@@ -18,15 +19,15 @@
 		 */
 		public static function i()
 		{
-			$class = get_called_class();
+			$class = get_called_class(); // get class that extends instancer
 			
 			if(!isset(self::$i[$class]))
 			{
-				\Fructum\EventListener::invoke('new_instance', $class);
-				self::$i[$class] = new $class;
+				\Fructum\EventListener::invoke('new_instance', $class); // invoke event 
+				self::$i[$class] = new $class; // add instance
 			}
 			
-			return self::$i[$class];
+			return self::$i[$class]; // ..and just return instance
 		}
 		
 		/**
@@ -34,6 +35,6 @@
 		 */
 		public static function __callStatic($method, $params)
 		{
-			return call_user_func_array(array(self::i(), $method), $params);
+			return call_user_func_array(array(self::i(), $method), $params); // you can use Class::func instead of Class::i()->func
 		}
 	}

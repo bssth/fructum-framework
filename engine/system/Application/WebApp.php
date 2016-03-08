@@ -26,32 +26,32 @@
 		public function init()
 		{
 			if(\Fructum\Config::debug !== true) {
-				set_exception_handler( array($this, 'exception_handler') );
+				set_exception_handler( array($this, 'exception_handler') ); // reset exception handler (for valid HTTP errors printing)
 			}
 
-			$this->cookie = isset($_COOKIE) ? $_COOKIE : array();
-			$this->headers = array();
+			$this->cookie = isset($_COOKIE) ? $_COOKIE : array(); // write cookies 
+			$this->headers = array(); 
 			$route = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
-			$this->route = $this->router($route);
+			$this->route = $this->router($route); // launch router 
 			
-			$classname = "Controller\\" . ucfirst($this->route[1]);
-			if(!class_exists($classname, true)) { return $this->error(404); }
-			$class = new $classname;
-			$method = "action" . ucfirst($this->route[2]);
-			if(!method_exists($class, $method) and !method_exists($class, '__call')) { return $this->error(404); } 
+			$classname = "Controller\\" . ucfirst($this->route[1]); 
+			if(!class_exists($classname, true)) { return $this->error(404); } // if controller is not found - close with 404 
+			$class = new $classname; // else - create instance
+			$method = "action" . ucfirst($this->route[2]); 
+			if(!method_exists($class, $method) and !method_exists($class, '__call')) { return $this->error(404); } // if no handler - close with 404  
 			
-			$this->output( call_user_func_array( array($class, $method), $this->route) );
+			$this->output( call_user_func_array( array($class, $method), $this->route) ); // else print result of controller work (using return)
 			
 			foreach($this->cookie as $k => $v)
 			{
-				setcookie($k, $v);
+				setcookie($k, $v); // set all cookies
 			}
 			foreach($this->headers as $k => $v)
 			{
-				header($v);
+				header($v); // send all headers
 			}
 			
-			print($this->buffer);
+			print($this->buffer); // print all in buffer
 		}
 		
 		/**
@@ -145,7 +145,7 @@
 		 */
 		public function exception_handler($e)
 		{
-			$this->error(500);
+			$this->error(500); // if exception is thrown - print internal server error
 		}
 		
 		/**
@@ -157,6 +157,6 @@
 		public function error($code)
 		{
 			\Fructum\EventListener::invoke('web_error', $code);
-			die( (new \Templater\Native($code))->render() );
+			die( (new \Templater\Native($code))->render() ); // find template for error with $code code and render it
 		}
 	}

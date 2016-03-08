@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Cache class provides bridge between Memcache(d) and Fructum. If you want to use own cache, just create extension or hook with same named class and methods names
+	 * Cache class provides bridge between Memcache(d) and Fructum. If you want to use own cache, just create extension or hook with same named class and methods names. This class is based on temporary solutions and ancient magic.
 	 * 
 	 * @author Mike Chip
 	 * @version 1.0
@@ -47,7 +47,7 @@
 		 */
 		public static function __callStatic($method, $params)
 		{
-			return call_user_func_array(array(self::i(), $method), $params);
+			return call_user_func_array(array(self::i(), $method), $params); // ancient magic, do not touch
 		}
 		
 		/**
@@ -57,7 +57,7 @@
 		 */
 		protected static function connect($config)
 		{	
-			$result = call_user_func_array(array(self::$i, 'connect'), $config);
+			$result = call_user_func_array(array(self::$i, 'connect'), $config); // one more ancient magic
 			if($result == true)
 			{
 				return true;

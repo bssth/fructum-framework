@@ -8,7 +8,7 @@
 	class Extendable
 	{
 		
-		protected $_functions = array();
+		protected $_functions = array(); // array with dynamic functions
 		
 		/** 
 		 * Creates dynamic function. Notice that class instance will always be given in last argument of function and you can't use $this variable
@@ -21,8 +21,8 @@
 			if(!is_callable($function)) { throw new Exception("Function must be callable"); }
 			if(isset($this->_functions[$fname])) { throw new Exception("Trying to rewrite function, aborting"); }
 			
-			$this->_functions[$fname] = $function;
-			\Fructum\EventListener::invoke('extendable', $this, $fname);
+			$this->_functions[$fname] = $function; // add function
+			\Fructum\EventListener::invoke('extendable', $this, $fname); // invoke event 
 		}
 		
 		/** 
@@ -35,11 +35,11 @@
 		public function __call($f, $args)
 		{
 			if(isset($this->_functions[$f])) {
-				$args[] = $this;
+				$args[] = $this; // adds class instance as last argument of dynamic function 
 				return call_user_func_array($this->_functions[$f], $args);
 			}
 			else {
-				return NULL;
+				return NULL; // pardon - function doesnt exists
 			}
 		}
 		

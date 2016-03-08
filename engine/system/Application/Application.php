@@ -4,6 +4,7 @@
 	 *
 	 * @author Mike Chip
 	 * @version 0.8
+	 * @todo become an interface
 	 *
 	 */
 	

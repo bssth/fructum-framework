@@ -21,7 +21,7 @@
 		 */
 		public function __construct($tpl = 'empty')
 		{
-			$this->path = file_exists($tpl) ? $tpl : (Core::root() . Core::SEPARATOR . 'templates' . Core::SEPARATOR . $tpl . '.html');
+			$this->path = file_exists($tpl) ? $tpl : (Core::root() . Core::SEPARATOR . 'templates' . Core::SEPARATOR . $tpl . '.html'); // if there is full path - write, else detect itself
 		}
 		
 		/**
@@ -69,11 +69,11 @@
 				throw new \Fructum\Exception("Template not found in {$this->path}");
 			}
 			foreach($this->vars as $k => $v) {
-				$$k = $v;
+				$$k = $v; // set all variables locally, because of require_once function
 			}
-			ob_start(NULL, 0, PHP_OUTPUT_HANDLER_CLEANABLE | PHP_OUTPUT_HANDLER_FLUSHABLE | PHP_OUTPUT_HANDLER_REMOVABLE);
-			require_once($this->path);
-			\Fructum\EventListener::invoke('tpl_render', $this->vars);
-			return ob_get_clean();
+			ob_start(NULL, 0, PHP_OUTPUT_HANDLER_CLEANABLE | PHP_OUTPUT_HANDLER_FLUSHABLE | PHP_OUTPUT_HANDLER_REMOVABLE); // start output buffer temporary
+			require_once($this->path); // evaluate template with PHP code 
+			\Fructum\EventListener::invoke('tpl_render', $this->vars); 
+			return ob_get_clean(); // clear output buffer with template and return it
 		}
 	}

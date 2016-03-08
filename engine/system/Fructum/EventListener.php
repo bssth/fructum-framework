@@ -31,15 +31,14 @@
 		 */
 		public static function invoke($event)
 		{
-			// \Fructum\EventListener::invoke('test');
-			if(!isset(self::$events[$event])) { return null; }
-			foreach(self::$events[$event] as $n => $func) {
-				call_user_func_array($func, func_get_args());
+			if(!isset(self::$events[$event])) { return null; } // stop if there is no handlers 
+			foreach(self::$events[$event] as $n => $func) { // select all handlers of event..
+				call_user_func_array($func, func_get_args()); // ..and call them 
 			}
-			if($event != 'event_added' and $event != 'event_invoked') {
-				\Fructum\EventListener::invoke('event_invoked', $event);
+			if($event != 'event_added' and $event != 'event_invoked') { // if event isnt 'event added \ invoked'..
+				\Fructum\EventListener::invoke('event_invoked', $event); // ..invoke 'event invoked'
 			}
-			return count(self::$events[$event]);
+			return count(self::$events[$event]); // returns count of handlers called
 		}
 		
 		/**
@@ -49,15 +48,15 @@
 		 */
 		public static function add($event, $func)
 		{
-			if(is_string($event) and is_callable($func)) {
+			if(is_string($event) and is_callable($func)) { // function name and body validator
 				self::$events[$event][] = $func;
 				if($event != "event_added") { 
-					\Fructum\EventListener::invoke('event_added', $event);
+					\Fructum\EventListener::invoke('event_added', $event); // invoke 'event added' event 
 				}
-				return count(self::$events[$event]);
+				return count(self::$events[$event]); // returns count of events handlers 
 			}
 			else {
-				throw new Exception('Bad event name or listener');
+				throw new Exception('Bad event name or listener'); // bad name or body = exception
 				return null;
 			}
 		}

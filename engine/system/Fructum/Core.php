@@ -16,13 +16,13 @@
 	class Core
 	{
 		// Core constants
-		const SEPARATOR = '/';
-		const EXT = '.php';
-		const MODS = 'modules';
-		const SYS = 'system';
-		const HOOKS = 'hooks';
-		const EXT_DIR = 'extensions';
-		protected static $root = null;
+		const SEPARATOR = '/'; // separator for directories; you can use / both in Windows and Unix
+		const EXT = '.php'; // scripts extension
+		const MODS = 'modules'; // folder with modules..
+		const SYS = 'system'; // ..system scripts..
+		const HOOKS = 'hooks'; // ..hooks..
+		const EXT_DIR = 'extensions'; // ..and extensions
+		protected static $root = null; // engine root
 		
 		/**
 		 * Inits frameworks and sets handlers
@@ -30,16 +30,16 @@
 		 */
 		public static function init()
 		{
-			self::root();
-			spl_autoload_register('\Fructum\Core::autoloader');
-			set_error_handler('\Fructum\Errors::error_handler');
-			set_exception_handler('\Fructum\Errors::exception_handler');
-			register_shutdown_function('\Fructum\Core::shutdown');
+			self::root(); // gets engine root
+			spl_autoload_register('\Fructum\Core::autoloader'); // register classes autoloader 
+			set_error_handler('\Fructum\Errors::error_handler'); // register error handler that throws exception 
+			set_exception_handler('\Fructum\Errors::exception_handler'); // register exception handler 
+			register_shutdown_function('\Fructum\Core::shutdown'); // no comments
 			
-			session_write_close();
+			session_write_close(); // stop session writing
 			
-			if(Config::disable_sessions != true) {
-				if(Config::session_handler != 'native' and strlen(Config::session_handler))
+			if(Config::disable_sessions != true) { // if sessions arent disabled..
+				if(Config::session_handler != 'native' and strlen(Config::session_handler)) // ..and it is not native handler 
 				{
 					$n = Config::session_handler;
 					$s = new $n;
@@ -47,7 +47,7 @@
 						session_set_save_handler( $s, true ); 
 					} 
 				}
-				session_start();
+				session_start(); // just start sessions handling
 			}
 			
 			if(Config::script_ignore_abort == true) {
@@ -56,7 +56,7 @@
 			
 			set_time_limit(Config::script_time_limit);
 			
-			\Fructum\EventListener::invoke('ready');
+			\Fructum\EventListener::invoke('ready'); // invoke event when script is ready
 		}
 		
 		/**
@@ -67,10 +67,10 @@
 		 */
 		public static function autoloader($class)
 		{
-			$class = str_replace('\\', '/', $class);
-			self::hooks_autoloader($class);
-			self::system_autoloader($class);
-			self::extensions_autoloader($class);			
+			$class = str_replace('\\', '/', $class); // TODO: remove
+			self::hooks_autoloader($class); // first of all, try to find hook 
+			self::system_autoloader($class); // if no hook - try in system folder 
+			self::extensions_autoloader($class); // else - in extensions and modules
 		}
 		
 		/**
@@ -169,6 +169,8 @@
 		 */
 		public static function shutdown()
 		{
+			// try to print debugger info before shutting down 
+			
 			\Fructum\EventListener::invoke('shutdown');
 			
 			if(Config::debug == true) {
