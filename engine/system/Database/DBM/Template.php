@@ -22,4 +22,6 @@
 		
 		public function remove($criteria); // remove row
 		
+		public function asId($id); // converts string to ID object, array etc.
+		
 	}

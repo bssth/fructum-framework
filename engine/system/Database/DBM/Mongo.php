@@ -57,4 +57,9 @@
 			return $this->i->{$this->table}->remove($cr);
 		}
 		
+		public function asId($id)
+		{
+			return (is_object($id)) ? $id : (new \MongoId($id));
+		}
+		
 	}
