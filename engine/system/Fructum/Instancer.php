@@ -28,4 +28,12 @@
 			
 			return self::$i[$class];
 		}
+		
+		/**
+		 * Uses static class as instance
+		 */
+		public static function __callStatic($method, $params)
+		{
+			return call_user_func_array(array(self::i(), $method), $params);
+		}
 	}

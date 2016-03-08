@@ -43,6 +43,14 @@
 		}
 		
 		/**
+		 * Uses static class as instance
+		 */
+		public static function __callStatic($method, $params)
+		{
+			return call_user_func_array(array(self::i(), $method), $params);
+		}
+		
+		/**
 		 * Creates connection to cache. You need to give config array as argument in same order as arguments in memcache (or either) class
 		 *
 		 * @param array $config
