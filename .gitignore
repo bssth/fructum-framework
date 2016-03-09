@@ -6,3 +6,4 @@ e/extensions/index.php
 e/packs/index.php
 engine/extensions/*
 engine/modules/*
+storage/*
