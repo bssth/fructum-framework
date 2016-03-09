@@ -22,6 +22,19 @@
 		public function __construct($tpl = 'empty')
 		{
 			$this->path = file_exists($tpl) ? $tpl : (Core::root() . Core::SEPARATOR . 'templates' . Core::SEPARATOR . $tpl . '.html'); // if there is full path - write, else detect itself
+			
+			if(!file_exists($this->path)) {
+				throw new \Fructum\Exception('Template is not found');
+			}
+		}
+		
+		public static function exists($tpl = 'empty')
+		{
+			if(file_exists($tpl) or file_exists(Core::root() . Core::SEPARATOR . 'templates' . Core::SEPARATOR . $tpl . '.html'))
+			{
+				return true;
+			}
+			return false;
 		}
 		
 		/**
