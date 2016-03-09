@@ -35,13 +35,16 @@
 			$this->route = $this->router($route); // launch router 
 			
 			$classname = "Controller\\" . ucfirst($this->route[1]); 
-			if(!class_exists($classname, true)) { return $this->error(404); } // if controller is not found - close with 404 
-			$class = new $classname; // else - create instance
-			$method = "action" . ucfirst($this->route[2]); 
-			if(!method_exists($class, $method) and !method_exists($class, '__call')) { return $this->error(404); } // if no handler - close with 404  
-			
-			$this->output( call_user_func_array( array($class, $method), $this->route) ); // else print result of controller work (using return)
-			
+			if(!class_exists($classname, true)) { 
+				\Templater\Native::exists('static_' . $this->route[1]) ? $this->output((new \Templater\Native('static_' . $this->route[1]))->render()) : $this->error(404); 
+			} // if controller is not found - close with 404 
+			else {
+				$class = new $classname; // else - create instance
+				$method = "action" . ucfirst($this->route[2]); 
+				if(!method_exists($class, $method) and !method_exists($class, '__call')) { return $this->error(404); } // if no handler - close with 404  
+				
+				$this->output( call_user_func_array( array($class, $method), $this->route) ); // else print result of controller work (using return)
+			}
 			foreach($this->cookie as $k => $v)
 			{
 				setcookie($k, $v); // set all cookies
