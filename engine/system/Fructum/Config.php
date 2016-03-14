@@ -31,5 +31,6 @@
 		const core_user_root = false; // only for debug 
 		const debug = true; // show errors and exception texts
 		const debugger = '\Debug\Fuse'; // debugger class (extends \Debug\Template)
+		const templater = '\Templater\Native'; // templater class (extends \Templater\Native)
 		
 	}

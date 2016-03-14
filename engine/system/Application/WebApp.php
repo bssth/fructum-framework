@@ -45,6 +45,7 @@
 				
 				$this->output( call_user_func_array( array($class, $method), $this->route) ); // else print result of controller work (using return)
 			}
+			
 			foreach($this->cookie as $k => $v)
 			{
 				setcookie($k, $v); // set all cookies

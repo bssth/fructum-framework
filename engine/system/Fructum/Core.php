@@ -67,10 +67,10 @@
 		 */
 		public static function autoloader($class)
 		{
-			$class = str_replace('\\', '/', $class); // TODO: remove
-			self::hooks_autoloader($class); // first of all, try to find hook 
-			self::system_autoloader($class); // if no hook - try in system folder 
-			self::extensions_autoloader($class); // else - in extensions and modules
+			if(class_exists($class, false)) { return null; }
+			self::hooks_autoloader($class);
+			self::system_autoloader($class);
+			self::extensions_autoloader($class);
 		}
 		
 		/**
@@ -82,9 +82,9 @@
 		 */
 		protected static function hooks_autoloader($class)
 		{
-			if(class_exists($class, false) or !file_exists(self::root() . self::SEPARATOR . self::HOOKS . self::SEPARATOR . $class . self::EXT)) { return; }
+			if(class_exists($class, false) or !file_exists(self::root() . self::SEPARATOR . self::HOOKS . self::SEPARATOR . str_replace('\\', '/', $class) . self::EXT)) { return; }
 			
-			@include_once(self::root() . self::SEPARATOR . self::HOOKS . self::SEPARATOR . $class . self::EXT);
+			require_once(self::root() . self::SEPARATOR . self::HOOKS . self::SEPARATOR . str_replace('\\', '/', $class) . self::EXT);
 		}
 		
 		/**
@@ -96,9 +96,9 @@
 		 */
 		protected static function system_autoloader($class)
 		{
-			if(class_exists($class, false) or !file_exists(self::root() . self::SEPARATOR . self::SYS . self::SEPARATOR . $class . self::EXT)) { return; }
+			if(class_exists($class, false) or !file_exists(self::root() . self::SEPARATOR . self::SYS . self::SEPARATOR . str_replace('\\', '/', $class) . self::EXT)) { return; }
 			
-			@include_once(self::root() . self::SEPARATOR . self::SYS . self::SEPARATOR . $class . self::EXT);
+			require_once(self::root() . self::SEPARATOR . self::SYS . self::SEPARATOR . str_replace('\\', '/', $class) . self::EXT);
 		}
 		
 		/**
@@ -119,8 +119,8 @@
 				if(substr($f, 0, strlen($ext)) != $ext) { 
 					continue; 
 				}
-				if(!file_exists($dir . self::SEPARATOR . $f . self::SEPARATOR . $class . self::EXT)) { continue; }
-				@include_once($dir . self::SEPARATOR . $f . self::SEPARATOR . $class . self::EXT);
+				if(!file_exists($dir . self::SEPARATOR . $f . self::SEPARATOR . str_replace('\\', '/', $class) . self::EXT)) { continue; }
+				require_once($dir . self::SEPARATOR . $f . self::SEPARATOR . str_replace('\\', '/', $class) . self::EXT);
 			}
 		}
 		
@@ -140,11 +140,11 @@
 			{
 				if($f == '.' or $f == '..') { continue; }
 				
-				if(!file_exists($dir . self::SEPARATOR . $f . self::SEPARATOR . $class . self::EXT)) { 
+				if(!file_exists($dir . self::SEPARATOR . $f . self::SEPARATOR . str_replace('\\', '/', $class) . self::EXT)) { 
 					self::modules_autoloader($class, $f);  
 				}
 				else {
-					@include_once($dir . self::SEPARATOR . $f . self::SEPARATOR . $class . self::EXT); 
+					require_once($dir . self::SEPARATOR . $f . self::SEPARATOR . str_replace('\\', '/', $class) . self::EXT); 
 				}
 			}
 		}
