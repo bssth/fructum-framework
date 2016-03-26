@@ -5,7 +5,6 @@
 	 *
 	 * @version 1.5
 	 * @author Mike Chip
-	 * @todo Optimization
 	 *
 	 */
 	 
@@ -158,9 +157,9 @@
 		{
 			if(is_null(self::$root)) 
 			{  
-				self::$root = defined('ROOT') ? ROOT : __DIR__ . '/../../';
+				self::$root = defined('ROOT') ? ROOT : $_SERVER['DOCUMENT_ROOT'] . self::SEPARATOR . 'engine' . self::SEPARATOR;
 			}
-			
+
 			return self::$root;
 		}
 		
