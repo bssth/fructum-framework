@@ -3,7 +3,7 @@
 	/**
 	 * Fructum Framework Core
 	 *
-	 * @version 1.0
+	 * @version 1.5
 	 * @author Mike Chip
 	 * @todo Optimization
 	 *
@@ -31,10 +31,10 @@
 		public static function init()
 		{
 			self::root(); // gets engine root
-			spl_autoload_register('\Fructum\Core::autoloader'); // register classes autoloader 
+			spl_autoload_register('\Fructum\Core::autoloader'); // register autoloader 
 			set_error_handler('\Fructum\Errors::error_handler'); // register error handler that throws exception 
 			set_exception_handler('\Fructum\Errors::exception_handler'); // register exception handler 
-			register_shutdown_function('\Fructum\Core::shutdown'); // no comments
+			register_shutdown_function('\Fructum\Core::shutdown'); // register shutdown function
 			
 			session_write_close(); // stop session writing
 			
