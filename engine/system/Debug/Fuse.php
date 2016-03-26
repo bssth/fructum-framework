@@ -9,7 +9,7 @@
 	 
 	namespace Debug;
 	
-	class Fuse
+	class Fuse implements Template
 	{
 		/** 
 		 * Array $data stores all Fuse Debugger's data
@@ -32,6 +32,24 @@
 			}
 			
 			return (new \Templater\Native('debug'))->set('array', self::$data)->render();
+		}
+		
+		/**
+		 * Returns all debug data as variable list
+		 * @return string 
+		 */
+		public static function asText()
+		{
+			if(self::$empty_html == true) {
+				return '';
+			}
+			
+			$txt = '';
+			foreach(self::$data as $k => $v) {
+				$txt .= $k . ' = ' . $v . ';';
+			}
+
+			return $txt;
 		}
 		
 		/**
