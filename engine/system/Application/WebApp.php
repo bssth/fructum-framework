@@ -8,7 +8,7 @@
 	
 	namespace Application;
 	
-	class WebApp extends \Fructum\Instancer
+	class WebApp extends \Fructum\Instancer implements Template
 	{
 		/**
 		 * Array with route data

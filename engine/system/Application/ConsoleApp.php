@@ -5,7 +5,7 @@
 	
 	namespace Application;
 	
-	class ConsoleApp extends \Fructum\Instancer
+	class ConsoleApp extends \Fructum\Instancer implements Template
 	{
 		
 		/**
