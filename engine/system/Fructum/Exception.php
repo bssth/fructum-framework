@@ -1,7 +1,7 @@
 <?php
 	/**
 	 *	Clean Fructum exception
-	*/
+	 */
 	
 	namespace Fructum;
 	
