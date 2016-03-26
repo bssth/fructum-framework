@@ -14,9 +14,16 @@
 		 */
 		public function init()
 		{
-			$a = new \Handler\Console;
-			$a->start();
-			\Fructum\EventListener::invoke('console_init');
+			if(class_exists('\Handler\Console'))
+			{
+				$a = new \Handler\Console;
+				$a->start();
+				\Fructum\EventListener::invoke('console_init');
+			}
+			else
+			{
+				$this->output('No console handler registered');
+			}
 		}
 		
 		/**
