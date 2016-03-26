@@ -3,59 +3,51 @@
 	 * Web application handler
 	 * 
 	 * @author Mike Chip
-	 * @version 1.1
+	 * @version 1.2
 	 */
 	
 	namespace Application;
 	
 	class WebApp extends \Fructum\Instancer
 	{
-		protected $buffer = ''; // output buffer
-		protected $cookie = array();
+		/**
+		 * Array with route data
+		 */
 		protected $route = array();
-		protected $headers = array();
 		
 		/**
 		 * Gets all cookies, URL query, set controller and call it. 
-		 * 
 		 * Sends new cookies and headers to client, prints HTML from output buffer
 		 *
 		 * @return void
-		 *
 		 */
 		public function init()
 		{
 			if(\Fructum\Config::debug !== true) {
 				set_exception_handler( array($this, 'exception_handler') ); // reset exception handler (for valid HTTP errors printing)
 			}
-
-			$this->cookie = isset($_COOKIE) ? $_COOKIE : array(); // write cookies 
-			$this->headers = array(); 
-			$route = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
-			$this->route = $this->router($route); // launch router 
 			
-			$classname = "Controller\\" . ucfirst($this->route[1]); 
+			\Web\Request::i()->autodetect();
+			
+			\Web\Response::$i = new \Web\Response;
+			\Web\Response::$i->setCookie( isset($_COOKIE) ? $_COOKIE : array(), null ); // write cookies 
+			
+			$this->route = \Web\Router::getRoute( \Web\Request::i()->uri ); // launch router 
+			
+			$classname = \Web\Router::getClassName($this->route[1]); 
+			
 			if(!class_exists($classname, true)) { 
-				\Templater\Native::exists('static_' . $this->route[1]) ? $this->output((new \Templater\Native('static_' . $this->route[1]))->render()) : $this->error(404); 
-			} // if controller is not found - close with 404 
+				\Templater\Native::exists('static_' . $this->route[1]) ? \Web\Response::$i->sendHTML((new \Templater\Native('static_' . $this->route[1]))->render()) : $this->error(404); 
+			} // if controller is not found and there is no static page - close with 404 
 			else {
 				$class = new $classname; // else - create instance
 				$method = "action" . ucfirst($this->route[2]); 
 				if(!method_exists($class, $method) and !method_exists($class, '__call')) { return $this->error(404); } // if no handler - close with 404  
 				
-				$this->output( call_user_func_array( array($class, $method), $this->route) ); // else print result of controller work (using return)
+				\Web\Response::$i->sendHTML( call_user_func_array( array($class, $method), $this->route) ); // else print result of controller work (using return)
 			}
 			
-			foreach($this->cookie as $k => $v)
-			{
-				setcookie($k, $v); // set all cookies
-			}
-			foreach($this->headers as $k => $v)
-			{
-				header($v); // send all headers
-			}
-			
-			print($this->buffer); // print all in buffer
+			\Web\Response::$i->send();
 		}
 		
 		/**
@@ -66,33 +58,7 @@
 		 */
 		public function header($header)
 		{
-			\Fructum\EventListener::invoke('header_added', $header);
-			$this->headers[$header] = $header;
-		}
-		
-		/**
-		 * Set cookie for client
-		 * 
-		 * @param string $name
-		 * @param string $value
-		 * @return bool
-		 */
-		public function set_cookie($name, $value)
-		{
-			$this->cookie[$name] = $value;
-			\Fructum\EventListener::invoke('cookie_set', $name, $value);
-			return ($this->cookie[$name] == $value);
-		}
-		
-		/**
-		 * Get cookie by name 
-		 *
-		 * @param string $name
-		 * @return mixed
-		 */
-		public function get_cookie($name)
-		{
-			return isset($this->cookie[$name]) ? $this->cookie[$name] : null;
+			\Web\Response::$i->sendHeader($header);
 		}
 		
 		/**
@@ -102,10 +68,7 @@
 		 */
 		public function output($data)
 		{
-			if(is_bool($data) and $data === false) { $this->buffer = ''; }
-			if(!is_string($data)) { return; }
-			\Fructum\EventListener::invoke('buffer_add', $data);
-			$this->buffer = $this->buffer . $data;
+			\Web\Response::$i->sendHTML($data);
 		}
 		
 		/**
@@ -126,26 +89,13 @@
 		 */
 		public function router($route) 
 		{
-			if(strpos($route, '?') != false and strpos($route, '?') >= 0) { $route = trim(strstr($route, '?', true), '?'); }
-			$urlArray = @explode("/", $route);
-			if (empty($urlArray[1])) 
-			{
-				$urlArray[1] = "index";
-			}
-			if (empty($urlArray[2])) 
-			{
-				$urlArray[2] = "index";
-			} 
-			if (empty($urlArray)) 
-			{
-				$urlArray = array(false, 'index', 'index');
-			}
-
-			return $urlArray;
+			return \Web\Router::getRoute($route);
 		}
 		
 		/**
 		 * Web Exception Handler
+		 * @param object $e
+		 * @return void
 		 */
 		public function exception_handler($e)
 		{
@@ -155,7 +105,7 @@
 		/**
 		 * Print error to user 
 		 *
-		 * @param int $code
+		 * @param integer $code
 		 * @return void
 		 */
 		public function error($code)
