@@ -7,3 +7,5 @@ e/packs/index.php
 engine/extensions/*
 engine/modules/*
 storage/*
+/nbproject/private/
+nbproject/
