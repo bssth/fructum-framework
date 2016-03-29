@@ -30,7 +30,7 @@
 		 */
 		public function sendHeader($content)
 		{
-			\Fructum\EventListener::invoke('header_added', $header);
+			\Fructum\EventListener::invoke('header_added', $content);
 			$this->headers[$content] = $content;
 		}
 		
