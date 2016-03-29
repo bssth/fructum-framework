@@ -24,6 +24,9 @@
 		const cache_timeout = 30; // cache time-out
 		const cache_session_timeout = 68400; // sessions time-out if using cache 
 		
+                const realplexor_host = '127.0.0.1'; // dklab realplexor host
+                const realplexor_port = '80'; // port
+                
 		const disable_sessions = false; // don't use sessions 
 		const session_handler = 'native'; // session handlers (set 'native' if want to use default PHP handler)
 		const script_time_limit = 0; // script executing time limit 
