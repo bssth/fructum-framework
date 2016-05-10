@@ -129,9 +129,9 @@
 		 *
 		 * @param string $query
 		 */
-		public function query($query)
+		public function query()
 		{
-			return $this->_db->query($query);
+			return call_user_func_array(array($this->_db, "query"), func_get_args());
 		}
 		
 		/**
