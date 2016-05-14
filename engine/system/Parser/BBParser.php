@@ -46,7 +46,7 @@
 			foreach($var as $str => $f)
 			{
 				if(!is_string($f)) { continue; }
-				$string = str_replace($str, "<img src='" . $f . "'>", $string);
+				$string = str_replace($str, "<img alt='" . $f . "' src='" . $f . "'>", $string);
 			}
 			return $string;
 		}
