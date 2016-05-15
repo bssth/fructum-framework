@@ -17,8 +17,8 @@
 		const script_ignore_abort = true; // ignore user aborting (for web apps)
 		const core_user_root = false; // only for debug 
 		const debug = true; // show errors and exception texts
-		const debugger = '\Debug\Fuse'; // debugger class (extends \Debug\Template)
-		const templater = '\Templater\Native'; // templater class (extends \Templater\Native)
+		const debugger = '\Debug\Fuse'; // debugger class (implements \Debug\Template)
+		const templater = '\Templater\Native'; // templater class (implements \Templater\Native)
 		
 		// Cache
 		const cache = '\Memcache'; // cache class name 
