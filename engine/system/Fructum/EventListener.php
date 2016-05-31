@@ -53,6 +53,7 @@
 				if($event != "event_added") { 
 					\Fructum\EventListener::invoke('event_added', $event); // invoke 'event added' event 
 				}
+				\Debug\Fuse::setData('EventsList', self::$events);
 				return count(self::$events[$event]); // returns count of events handlers 
 			}
 			else {
