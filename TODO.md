@@ -8,7 +8,6 @@ TODO List:
 - Several application types (Default Web, Web API, Web File Storage)
 - Unit tests
 - Javascript and CSS as Fructum functions
-- Validators
 - Fructum Version Updater
 - Coding standart cheatsheet
 - Cachabase (database based on cache)
