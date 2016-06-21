@@ -3,13 +3,12 @@
 	 * Web application handler
 	 * 
 	 * @author Mike Chip
-	 * @version 1.2
 	 */
 	
 	namespace Application;
 	use \Fructum\Config as Config;
 	
-	class WebApp extends \Fructum\Instancer implements Template
+	class WebApp extends \Fructum\Instancer implements _Interface
 	{
 		/**
 		 * Array with route data

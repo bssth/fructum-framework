@@ -10,7 +10,7 @@
 	
 	namespace Application;
 	
-	interface Template
+	interface _Interface
 	{
 		
 		/**

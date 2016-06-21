@@ -1,11 +1,13 @@
 <?php
 	/**
 	 * Application handler for command line project
+	 * 
+	 * @author Mike Chip
 	 */
 	
 	namespace Application;
 	
-	class ConsoleApp extends \Fructum\Instancer implements Template
+	class ConsoleApp extends \Fructum\Instancer implements _Interface
 	{
 		
 		/**
