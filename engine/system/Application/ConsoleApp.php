@@ -19,12 +19,16 @@
 			if(class_exists('\Handler\Console'))
 			{
 				$a = new \Handler\Console;
+				if(!method_exists($a, 'start'))
+				{
+					throw new Exception('No start() method in console handler found');
+				}
 				$a->start();
 				\Fructum\EventListener::invoke('console_init');
 			}
 			else
 			{
-				$this->output('No console handler registered');
+				throw new Exception('No console handler registered');
 			}
 		}
 		
