@@ -5,7 +5,6 @@ TODO List:
 - Authorization
 - Working with passwords, encoding
 - Static pages caching, internal cache
-- Web File Storage (application type)
 - Unit tests
 - Javascript and CSS as Fructum functions
 - Fructum Version Updater

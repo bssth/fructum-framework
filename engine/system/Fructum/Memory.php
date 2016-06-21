@@ -26,6 +26,22 @@
 		}
 		
 		/**
+		 * Gets extensions
+		 */
+		public function getExt()
+		{
+			return $this->ext;
+		}
+		
+		/**
+		 * Gets path
+		 */
+		public function getPath()
+		{
+			return $this->path;
+		}
+		
+		/**
 		 * Delete all memory
 		 */
 		public function flush()
