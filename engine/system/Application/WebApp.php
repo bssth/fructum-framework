@@ -7,6 +7,7 @@
 	 */
 	
 	namespace Application;
+	use \Fructum\Config as Config;
 	
 	class WebApp extends \Fructum\Instancer implements Template
 	{
@@ -27,7 +28,31 @@
 				set_exception_handler( array($this, 'exception_handler') ); // reset exception handler (for valid HTTP errors printing)
 			}
 			
+			new \Fructum\EventListener('shutdown', function() {
+				if(Config::debug == true) {
+					try {
+						echo call_user_func(Config::debugger . '::asHTML');
+					}
+					catch(Exception $e) {
+						echo $e->__toString();
+					}
+				}
+			});
+			
 			\Web\Request::i()->autodetect();
+			
+			session_write_close(); // stop session writing
+			if(Config::disable_sessions != true) { // if sessions arent disabled..
+				if(Config::session_handler != 'native' and strlen(Config::session_handler)) // ..and it is not native handler 
+				{
+					$n = Config::session_handler;
+					$s = new $n;
+					if(@$s->handled != true) { 
+						session_set_save_handler( $s, true ); 
+					} 
+				}
+				session_start(); // just start sessions handling
+			}
 			
 			\Web\Response::$i = new \Web\Response;
 			\Web\Response::$i->setCookie( isset($_COOKIE) ? $_COOKIE : array(), null ); // write cookies 

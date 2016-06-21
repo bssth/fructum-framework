@@ -35,20 +35,6 @@
 			set_exception_handler('\Fructum\Errors::exception_handler'); // register exception handler 
 			register_shutdown_function('\Fructum\Core::shutdown'); // register shutdown function
 			
-			session_write_close(); // stop session writing
-			
-			if(Config::disable_sessions != true) { // if sessions arent disabled..
-				if(Config::session_handler != 'native' and strlen(Config::session_handler)) // ..and it is not native handler 
-				{
-					$n = Config::session_handler;
-					$s = new $n;
-					if(@$s->handled != true) { 
-						session_set_save_handler( $s, true ); 
-					} 
-				}
-				session_start(); // just start sessions handling
-			}
-			
 			if(Config::script_ignore_abort == true) {
 				ignore_user_abort();
 			}
@@ -171,14 +157,5 @@
 			// try to print debugger info before shutting down 
 			
 			\Fructum\EventListener::invoke('shutdown');
-			
-			if(Config::debug == true) {
-				try {
-					echo call_user_func(Config::debugger . '::asHTML');
-				}
-				catch(Exception $e) {
-					echo $e->__toString();
-				}
-			}
 		}
 	}
