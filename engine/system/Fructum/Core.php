@@ -157,7 +157,7 @@
 		{
 			if(is_null(self::$root)) 
 			{  
-				self::$root = defined('ROOT') ? ROOT : $_SERVER['DOCUMENT_ROOT'] . self::SEPARATOR . 'engine' . self::SEPARATOR;
+				self::$root = defined('ROOT') ? ROOT : __DIR__ . '/../../';
 			}
 
 			return self::$root;
