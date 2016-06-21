@@ -20,6 +20,7 @@
 		const MODS = 'modules'; // folder with modules..
 		const SYS = 'system'; // ..system scripts..
 		const HOOKS = 'hooks'; // ..hooks..
+		const CACHE = 'cache'; // ..cache..
 		const EXT_DIR = 'extensions'; // ..and extensions
 		protected static $root = null; // engine root
 		

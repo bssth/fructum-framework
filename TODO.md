@@ -11,7 +11,6 @@ TODO List:
 - Fructum Version Updater
 - Coding standart cheatsheet
 - Cachabase (database based on cache)
-- Fructum Memory (local cache)
 - Advanced Controllers
 - Dynamic core directories (system, extensions etc.)
 - Redis support
