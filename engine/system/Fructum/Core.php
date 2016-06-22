@@ -101,7 +101,7 @@
 			$dir = self::root() . self::SEPARATOR . self::MODS . self::SEPARATOR;
 			foreach(scandir($dir) as $f)
 			{
-				if($f == '.' or $f == '..') { continue; }
+				if($f == '.' or $f == '..' or !is_dir($dir . $f)) { continue; }
 				if(substr($f, 0, strlen($ext)) != $ext) { 
 					continue; 
 				}
@@ -124,7 +124,7 @@
 			$dir = self::root() . self::SEPARATOR . self::EXT_DIR . self::SEPARATOR;
 			foreach(scandir($dir) as $f)
 			{
-				if($f == '.' or $f == '..') { continue; }
+				if($f == '.' or $f == '..' or !is_dir($dir . $f)) { continue; }
 				
 				if(!file_exists($dir . self::SEPARATOR . $f . self::SEPARATOR . str_replace('\\', '/', $class) . self::EXT)) { 
 					self::modules_autoloader($class, $f);  
