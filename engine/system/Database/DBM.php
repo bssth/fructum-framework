@@ -19,6 +19,10 @@
 			if(!is_object(self::$instance)) {
 				$classname = "\\Database\\DBM\\" . Config::db_type;
 				self::$instance = new $classname;
+				if(!(self::$instance instanceof \Database\DBM\_Interface))
+				{
+					throw new \Fructum\Exception("{$classname} is instance of DBM interface");
+				}
 			}
 
 			return self::$instance;
