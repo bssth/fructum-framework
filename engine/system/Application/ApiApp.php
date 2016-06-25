@@ -105,6 +105,6 @@
 		public function error($code)
 		{
 			\Fructum\EventListener::invoke('web_error', $code);
-			die( json_encode( array('error' => $code) ) ); // find template for error with $code code and render it
+			die( json_encode( array('error' => $code) ) );
 		}
 	}
