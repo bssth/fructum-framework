@@ -9,7 +9,7 @@
 	 
 	namespace Debug;
 	
-	class Fuse implements Template
+	class Fuse implements _Interface
 	{
 		/** 
 		 * Array $data stores all Fuse Debugger's data
