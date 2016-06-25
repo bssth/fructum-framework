@@ -22,7 +22,12 @@
 		 */ 
 		public static function error_handler($errno, $errstr, $errfile, $errline, $errcontext)
 		{
-			\Fructum\EventListener::invoke('error', func_get_args()); // invoke event
+			try {
+				\Fructum\EventListener::invoke('error', func_get_args()); // invoke event
+			}
+			catch(Exception $e) {
+				throw new Exception("Cannot handle error: " . $e->__toString());
+			}
 			throw new Exception( "Error #{$errno}: {$errstr} [File {$errfile} in line {$errline}]" ); // throw exception
 		}
 		
@@ -33,11 +38,7 @@
 		*/
 		public static function exception_handler($e)
 		{
-			\Debug\Fuse::addData('errors', $e->__toString()); // register error in debugger 
-			
-			if(Config::debug == true) {
-				die(nl2br($e->__toString())); // if debug - just print exception text
-			}
+			return true; // todo
 		}
 		
 	}
