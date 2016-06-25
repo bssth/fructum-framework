@@ -5,7 +5,7 @@
 	 
 	namespace Database\DBM;
 	
-	interface Template
+	interface _Interface
 	{
 		
 		public function __get($table); // selecting table\collection

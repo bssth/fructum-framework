@@ -5,7 +5,7 @@
 	 
 	namespace Database\DBM;
 	
-	class Mongo implements Template
+	class Mongo implements _Interface
 	{
 		
 		public $i = null;
