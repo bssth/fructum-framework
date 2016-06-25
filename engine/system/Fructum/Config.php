@@ -38,6 +38,9 @@
 		// Daemon
 		const realplexor_host = '127.0.0.1'; // dklab realplexor host
 		const realplexor_port = '80'; // port
+		const websocket_protocol = 'tcp://'; // websocket protocol to listen
+		const websocket_host = '127.0.0.1'; // websocket ip to listen
+		const websocket_port = '7777'; // websocket port to listen
 		
 		// Pagination
 		const per_page = 15;

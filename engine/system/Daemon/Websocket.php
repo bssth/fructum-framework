@@ -9,6 +9,8 @@
 	*
 	*/
 	
+	namespace Daemon;
+	
 	class Websocket
 	{
 		
@@ -20,9 +22,9 @@
 		protected $connection;
 		protected $connects;
 		
-		var $handler = null;
-		var $output = null;
-		var $hearthbeat = null;
+		public $handler = null;
+		public $output = null;
+		public $hearthbeat = null;
 		
 		function __construct($protocol = 'tcp://', $ip = '127.0.0.1', $port = '7777')
 		{
@@ -43,19 +45,29 @@
 		
 		function log($message)
 		{
-			$message = '[' . date('r') . '] ' . $message . '
-			';
-			print($message);
-			if($this->output != null)
-			{
-				return fwrite($this->output, $message);
+			try {
+				$message = '[' . date('r') . '] ' . $message . PHP_EOL;
+				print($message);
+				
+				if($this->output != null)
+				{
+					return fwrite($this->output, $message);
+				}
+			}
+			catch(\Fructum\Exception $e) {
+				print($message);
 			}
 			return $message;
 		}
 		
 		function setOutput($file)
 		{
-			$this->output = fopen($file, 'a');
+			if(is_string($file)) {
+				$this->output = fopen($file, 'a');
+			}
+			else {
+				$this->output = $file;
+			}
 		}
 		
 		function runServer()
