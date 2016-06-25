@@ -26,17 +26,10 @@
 			if(\Fructum\Config::debug !== true) {
 				set_exception_handler( array($this, 'exception_handler') ); // reset exception handler (for valid HTTP errors printing)
 			}
-			
-			new \Fructum\EventListener('shutdown', function() {
-				if(Config::debug == true) {
-					try {
-						echo call_user_func(Config::debugger . '::asHTML');
-					}
-					catch(Exception $e) {
-						echo $e->__toString();
-					}
-				}
-			});
+			else
+			{
+				set_exception_handler( array($this, 'debugger_handler') );
+			}
 			
 			\Web\Request::i()->autodetect();
 			
@@ -65,8 +58,13 @@
 			} // if controller is not found and there is no static page - close with 404 
 			else {
 				$class = new $classname; // else - create instance
+				if(!($class instanceof \Web\Controller)) {
+					throw new Exception("{$classname} is not a controller");
+				}
 				$method = "action" . ucfirst($this->route[2]); 
-				if(!method_exists($class, $method) and !method_exists($class, '__call')) { return $this->error(404); } // if no handler - close with 404  
+				if(!method_exists($class, $method) and !method_exists($class, '__call')) { 
+					return $this->error(404); 
+				} // if no handler - close with 404  
 				
 				\Web\Response::$i->sendHTML( call_user_func_array( array($class, $method), $this->route) ); // else print result of controller work (using return)
 			}
@@ -114,6 +112,18 @@
 		public function router($route) 
 		{
 			return \Web\Router::getRoute($route);
+		}
+		
+		public function debugger_handler($e)
+		{
+			\Debug\Fuse::setData('main_problem', $e->__toString());
+			
+			try {
+				print(call_user_func(Config::debugger . '::asHTML'));
+			}
+			catch(Exception $e) {
+				echo $e->__toString();
+			}
 		}
 		
 		/**
