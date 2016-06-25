@@ -5,7 +5,14 @@
 <div id='fructum-fuse-debugger' style='display: none;'>
 	<font size='1'>
 		<table class='xdebug-error xe-uncaught-exception' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
-			<tr><th align='left' bgcolor='#f57900' colspan='5'><h3>Fuse Debugger</h3></th></tr>
+			<tr>
+				<th align='left' bgcolor='#f57900' colspan='5'>
+					<h3>Fuse Debugger</h3>
+					<?php if(isset($array['main_problem'])) { ?>
+						<?=nl2br($array['main_problem']);?>
+					<?php } ?>
+				</th>
+			</tr>
 			<?php			
 				if(isset($array['errors'])) {
 					foreach($array['errors'] as $k => $v) {
