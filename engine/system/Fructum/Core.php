@@ -53,7 +53,10 @@
 		 */
 		public static function autoloader($class)
 		{
-			if(class_exists($class, false)) { return null; }
+			if(class_exists($class, false)) { 
+				return null; 
+			}
+			
 			self::hooks_autoloader($class);
 			self::system_autoloader($class);
 			self::extensions_autoloader($class);
@@ -144,7 +147,7 @@
 		{
 			if(is_null(self::$root)) 
 			{  
-				self::$root = defined('ROOT') ? ROOT : __DIR__ . '/../../';
+				self::$root = defined('ROOT') ? ROOT : __DIR__ . '/../../'; // usually ROOT has value
 			}
 
 			return self::$root;
@@ -156,7 +159,6 @@
 		public static function shutdown()
 		{
 			// try to print debugger info before shutting down 
-			
 			\Fructum\EventListener::invoke('shutdown');
 		}
 	}
