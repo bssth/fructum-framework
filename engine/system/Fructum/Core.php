@@ -117,18 +117,20 @@
 		 * Extension`s classes loader
 		 *
 		 * @param string $class
-		 * @return void
+		 * @return boolean|null
 		 *
 		 */
 		protected static function extensions_autoloader($class)
 		{
-			if(class_exists($class, false)) { return; }
+			if(class_exists($class, false)) { return false; }
 			
 			$dir = self::root() . self::SEPARATOR . self::EXT_DIR . self::SEPARATOR;
+			
 			foreach(scandir($dir) as $f)
 			{
-				if($f == '.' or $f == '..' or !is_dir($dir . $f)) { continue; }
-				
+				if($f == '.' or $f == '..' or !is_dir($dir . $f) or file_exists($dir . $f . self::SEPARATOR . 'DISABLE')) { 
+					continue; 
+				}
 				if(!file_exists($dir . self::SEPARATOR . $f . self::SEPARATOR . str_replace('\\', '/', $class) . self::EXT)) { 
 					self::modules_autoloader($class, $f);  
 				}
@@ -136,6 +138,7 @@
 					require_once($dir . self::SEPARATOR . $f . self::SEPARATOR . str_replace('\\', '/', $class) . self::EXT); 
 				}
 			}
+			return true;
 		}
 		
 		/**

@@ -18,7 +18,6 @@ TODO List:
 - Multiple configs
 - Anti DDOS
 - Static table structure in PHP
-- Disabling extensions
 - Apache and Nginx intergration
 - Tools to work with CSS
 - Tools to store CSS and JS scripts without using static files
