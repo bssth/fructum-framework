@@ -26,6 +26,12 @@
 		public $output = null;
 		public $hearthbeat = null;
 		
+		/**
+		 * Create instance
+		 * @param string $protocol
+		 * @param string $ip 
+		 * @param string $port
+		 */
 		function __construct($protocol = 'tcp://', $ip = '127.0.0.1', $port = '7777')
 		{
 			$this->protocol = $protocol;
@@ -38,11 +44,20 @@
 			$this->close();
 		}
 		
+		/**
+		 * Close connection
+		 * @return void
+		 */
 		function close()
 		{
 			fclose($this->connection);
 		}
 		
+		/**
+		 * Write new message to log or output
+		 * @param string $message
+		 * @return string
+		 */
 		function log($message)
 		{
 			try {
@@ -60,6 +75,11 @@
 			return $message;
 		}
 		
+		/**
+		 * Set file or thread as output
+		 * @param string $file
+		 * @return void
+		 */
 		function setOutput($file)
 		{
 			if(is_string($file)) {
@@ -70,6 +90,10 @@
 			}
 		}
 		
+		/**
+		 * Stream socket server
+		 * @return mixed
+		 */
 		function runServer()
 		{
 			$this->connection = stream_socket_server($this->protocol . $this->ip . ':' . $this->port, $errno, $errstr);
@@ -135,7 +159,11 @@
 			}
 		}
 		
-		public static function decode($data){
+		/**
+		 * Decode input data
+		 */
+		public static function decode($data)
+		{
 			$unmaskedPayload = '';
 			$decodedData = array();
 			// estimate frame type:
@@ -212,6 +240,9 @@
 			return $decodedData;
 		}
 		
+		/**
+		 * Encode output data
+		 */
 		public static function encode($payload, $type = 'text', $masked = false) {
 			$frameHead = array();
 			$payloadLength = strlen($payload);
@@ -272,6 +303,11 @@
 			return $frame;
 		}
 		
+		/**
+		 * Do handshake between server and client
+		 * @param resource $connect
+		 * @return string
+		 */
 		function handshake($connect) {
 			$info = array();
 			$line = fgets($connect);
@@ -301,11 +337,22 @@
 			return $info;
 		}
 		
+		/**
+		 * Send data to one client
+		 * @param resource $connection
+		 * @param string $data
+		 * @return void
+		 */
 		function send($connection, $data)
 		{
 			fwrite($connection, self::encode($data));
 		}
 		
+		/**
+		 * Send data to all clients
+		 * @param string $data
+		 * @return void
+		 */
 		function sendAll($data)
 		{
 			foreach($this->connects as $connection)
@@ -314,6 +361,12 @@
 			}
 		}
 		
+		/**
+		 * Handle data got from client
+		 * @param resource $connect
+		 * @param string $data
+		 * @return mixed
+		 */
 		protected function getMessage($connect, $data)
 		{
 			if(is_callable($this->handler))
