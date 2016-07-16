@@ -48,7 +48,7 @@
 		{
 			if(!isset($_FILES[$varname]['tmp_name']))
 			{
-				throw new \Fructum\Exception('Bad $_FILES variable name: ' . $varname);
+				throw new \Fructum\Exception('Bad $_FILES variable name');
 			}
 			
 			$filename = md5($_FILES['userfile']['tmp_name']);
