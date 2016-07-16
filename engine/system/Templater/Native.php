@@ -28,6 +28,21 @@
 			}
 		}
 		
+		/**
+		 * Get path by template name 
+		 * @param string $tpl 
+		 * @return string
+		 */
+		public static function getPath($tpl = 'empty')
+		{
+			return Core::root() . Core::SEPARATOR . 'templates' . Core::SEPARATOR . $tpl . '.html'
+		}
+		
+		/**
+		 * Check if template exists
+		 * @param string $tpl
+		 * @return boolean
+		 */
 		public static function exists($tpl = 'empty')
 		{
 			if(file_exists($tpl) or file_exists(Core::root() . Core::SEPARATOR . 'templates' . Core::SEPARATOR . $tpl . '.html'))
