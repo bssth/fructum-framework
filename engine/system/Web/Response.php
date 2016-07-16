@@ -9,9 +9,18 @@
 	{
 		public static $i = null; 
 		
-		protected $cookie = array();	
+		public $cookie = array();	
 		protected $buffer = ''; // output buffer
-		protected $headers = array();
+		public $headers = array();
+		
+		/**
+		 * Gets saved HTML
+		 * @return string
+		 */
+		public function getData()
+		{
+			return (string)$this->buffer;
+		}
 		
 		/**
 		 * Saves HTML in buffer
