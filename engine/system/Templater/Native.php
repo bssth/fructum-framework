@@ -35,7 +35,7 @@
 		 */
 		public static function getPath($tpl = 'empty')
 		{
-			return Core::root() . Core::SEPARATOR . 'templates' . Core::SEPARATOR . $tpl . '.html'
+			return Core::root() . Core::SEPARATOR . 'templates' . Core::SEPARATOR . $tpl . '.html';
 		}
 		
 		/**
