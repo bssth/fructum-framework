@@ -5,7 +5,7 @@
 	 
 	namespace Database\DBM;
 	
-	class Mongo implements _Interface
+	class Mongo implements DriverInterface
 	{
 		
 		public $i = null;
