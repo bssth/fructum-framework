@@ -23,7 +23,7 @@ class Realplexor
      */
     public static function i()
     {
-        if(is_object(self::$instance))
+        if(!is_object(self::$instance))
         {
             self::$instance = new Realplexor(\Fructum\Config::realplexor_host, \Fructum\Config::realplexor_port);
         }
