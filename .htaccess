@@ -1,7 +1,8 @@
 Options -Indexes +FollowSymlinks
 
 DirectoryIndex index.php
-<FilesMatch ".(htaccess|htpasswd|cfg|ini|lock|cache|conf)$">
+
+<FilesMatch ".(htaccess|htpasswd|cfg|ini|lock|cache|MD|gitignore|conf)$">
  Order Allow,Deny
  Deny from all
 </FilesMatch>
