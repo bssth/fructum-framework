@@ -91,7 +91,7 @@
 		 */
 		public function gc($maxlifetime)
 		{
-		`	/*$files = scandir( $this->savePath );
+			/*$files = scandir( $this->savePath );
 			foreach($files as $f) 
 			{
 				if(!strstr($f, '.session')) { continue; }

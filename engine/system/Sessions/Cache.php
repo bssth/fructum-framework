@@ -15,7 +15,7 @@
 		/**
 		 * Opens needed dirs
 		 */
-		public function open($savePath, $sessionName) 
+		public function open() 
 		{
 			return true;
 		}
@@ -53,15 +53,15 @@
 		 */
 		public function write($id, $data) 
 		{
-			\Database\Cache::i()->set('session_' . $id, $data, MEMCACHE_COMPRESSED, \Fructum\Config::cache_session_timeout)
-			return true;
+			\Database\Cache::i()->set('session_' . $id, $data, MEMCACHE_COMPRESSED, \Fructum\Config::cache_session_timeout);
+                        return true;
 		}
 		
 		/**
 		 * Destroyes session 
 		 * @param string $id
 		 */
-		public function destroy($id)
+		public function destroy()
 		{
 			//\Database\Cache::i()->remove('session_' . $id);
 			return true;
@@ -71,7 +71,7 @@
 		 * Deletes sessions created ages ago
 		 * @param string $maxlifetime
 		 */
-		public function gc($maxlifetime)
+		public function gc()
 		{
 			return true;
 		}
