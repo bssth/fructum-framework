@@ -6,8 +6,7 @@
 	 *	
 	 *	@version 1.0
 	 */
-	
-	
+
 	require_once('engine/system/autoload.php');
 
 	Application\WebApp::i()->init();

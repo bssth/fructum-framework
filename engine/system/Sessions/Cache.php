@@ -7,11 +7,6 @@
 	
 	class Cache
 	{
-	
-		protected $savePath;
-		protected $sessionName;
-		public $handled;
-	
 		/**
 		 * Opens needed dirs
 		 */

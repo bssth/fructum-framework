@@ -7,9 +7,6 @@
 	
 	class Files
 	{
-	
-		protected $savePath;
-		protected $sessionName;
 		public $handled;
 		
 		/**
@@ -29,12 +26,11 @@
 		/**
 		 * Opens needed dirs
 		 */
-		public function open($savePath, $sessionName) 
+		public function open() 
 		{
 			$this->savePath = \Fructum\Core::root() . \Fructum\Core::SEPARATOR . 'cache' . \Fructum\Core::SEPARATOR;
-			if(!is_dir($this->savePath)) { mkdir($this->savePath, 0777); }
-			
-			//$this->sessionName = $sessionName;
+			if(!is_dir($this->savePath))
+			    mkdir($this->savePath, 0777);
 			return true;
 		}
 		

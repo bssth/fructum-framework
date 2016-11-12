@@ -7,10 +7,28 @@
 	
 	class Response
 	{
+		/**
+		 * Web response instance
+		 * @var object
+		 */
 		public static $i = null; 
 		
+		/**
+		 * Cookies list to send
+		 * @var array
+		 */
 		public $cookie = array();	
+		
+		/**
+		 * Output buffer caches HTML/text before print
+		 * @var string
+		 */
 		protected $buffer = ''; // output buffer
+		
+		/**
+		 * Headers list to send
+		 * @var array
+		 */
 		public $headers = array();
 		
 		/**

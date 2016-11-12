@@ -11,7 +11,16 @@
 	
 	class Native
 	{
+		/**
+		 * Path to templates
+		 * @var string
+		 */
 		public $path = '';
+		
+		/**
+		 * Variables list
+		 * @var array
+		 */
 		protected $vars = array();
 	
 		/**
@@ -93,12 +102,12 @@
 		 */
 		public function render()
 		{
-			if(!file_exists($this->path)) {
+			if(!file_exists($this->path))
 				throw new \Fructum\Exception("Template not found in {$this->path}");
-			}
-			foreach($this->vars as $k => $v) {
+
+			foreach($this->vars as $k => $v)
 				$$k = $v; // set all variables locally, because of require_once function
-			}
+
 			ob_start(NULL, 0, PHP_OUTPUT_HANDLER_CLEANABLE | PHP_OUTPUT_HANDLER_FLUSHABLE | PHP_OUTPUT_HANDLER_REMOVABLE); // start output buffer temporary
 			require_once($this->path); // evaluate template with PHP code 
 			\Fructum\EventListener::invoke('tpl_render', $this->vars); 
