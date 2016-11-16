@@ -27,9 +27,8 @@
 		 */
 		public static function asHTML()
 		{
-			if(self::$empty_html == true) {
+			if(self::$empty_html == true)
 				return '';
-			}
 			
 			return (new \Templater\Native('debug'))->set('array', self::$data)->render();
 		}
@@ -40,14 +39,12 @@
 		 */
 		public static function asText()
 		{
-			if(self::$empty_html == true) {
+			if(self::$empty_html == true)
 				return '';
-			}
 			
 			$txt = '';
-			foreach(self::$data as $k => $v) {
+			foreach(self::$data as $k => $v)
 				$txt .= $k . ' = ' . $v . ';';
-			}
 
 			return $txt;
 		}
@@ -85,9 +82,9 @@
 		{
 			if(is_array($val))
 			{
-				if(!isset(self::$data[$var]) or !is_array(self::$data[$var])) {
+				if(!isset(self::$data[$var]) or !is_array(self::$data[$var]))
 					self::$data[$var] = array();
-				}
+
 				self::$data[$var][] = $val;
 				return true;
 			}
