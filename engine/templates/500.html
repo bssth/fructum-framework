@@ -1,4 +1,4 @@
 <h1>Internal Server Error</h1>
 <p>Please, try again later or contact administrator</p>
 <hr>
-<p><?=@$_SERVER['SERVER_SIGNATURE']?> <br> <i>Fructum Framework</i></p>
+<p><?=isset($_SERVER['SERVER_SIGNATURE']) ? $_SERVER['SERVER_SIGNATURE'] : '<i>Fructum Framework</i>'?></p>

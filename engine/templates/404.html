@@ -1,4 +1,4 @@
 <h1>Not Found</h1>
 <p>This page cannot be found</p>
 <hr>
-<p><?=@$_SERVER['SERVER_SIGNATURE']?> <br> <i>Fructum Framework</i></p>
+<p><?=isset($_SERVER['SERVER_SIGNATURE']) ? $_SERVER['SERVER_SIGNATURE'] : '<i>Fructum Framework</i>'?></p>

@@ -2,4 +2,4 @@
 <h2>Server name is <?=$_SERVER['SERVER_NAME']?></h2>
 <h3>Variable <font color='blue'>$test</font> equals <font color='grey'><?=$test?></font></h3>
 Life is good <br>
-<p><?=@$_SERVER['SERVER_SIGNATURE']?> <br> <i>Fructum Framework</i></p>
+<p><?=isset($_SERVER['SERVER_SIGNATURE']) ? $_SERVER['SERVER_SIGNATURE'] : '<i>Fructum Framework</i>'?></p>
