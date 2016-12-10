@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * MongoDB driver for Fructum
+	 * MySQL driver for Fructum
 	 */
 	
 	namespace Database\DBM;
