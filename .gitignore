@@ -6,7 +6,6 @@ e/packs/index.php
 storage/*
 /nbproject/private/
 nbproject/
-_/*
 engine/extensions/*
 !engine/extensions/delete_me
 engine/hooks/*
