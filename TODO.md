@@ -1,5 +1,6 @@
 TODO List:
 
+- (for 2.0!) Application Management Panel
 - Data formatting
 - Fuse Debugger 2 with Debug Toolbar
 - Authorization
