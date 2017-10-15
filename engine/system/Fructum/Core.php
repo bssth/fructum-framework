@@ -3,7 +3,7 @@
 	/**
 	 * Fructum Framework Core
 	 *
-	 * @version 1.5
+	 * @version 1.5.5
 	 * @author Mike Chip
 	 *
 	 */
@@ -21,6 +21,7 @@
 		const SYS = 'system'; // ..system scripts..
 		const HOOKS = 'hooks'; // ..hooks..
 		const CACHE = 'cache'; // ..cache..
+		const DATABASE = 'database'; // ..database files..
 		const EXT_DIR = 'extensions'; // ..and extensions
 		protected static $root = null; // engine root
 		
