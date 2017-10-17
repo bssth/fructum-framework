@@ -29,6 +29,8 @@
 		
 		public function getAll($table, $query)
 		{
+			$this->prepareDir($table);
+			
 			if(isset($query['id']))
 				return file_exists($this->database_dir . $table . \Fructum\Core::SEPARATOR . $query['id'])
 				? [unserialize(file_get_contents($this->database_dir . $table . \Fructum\Core::SEPARATOR . $query['id']))] : null;
@@ -50,6 +52,8 @@
 		
 		public function getOne($table, $query)
 		{
+			$this->prepareDir($table);
+			
 			if(isset($query['id']))
 				return file_exists($this->database_dir . $table . \Fructum\Core::SEPARATOR . $query['id'])
 				? unserialize(file_get_contents($this->database_dir . $table . \Fructum\Core::SEPARATOR . $query['id'])) : null;
@@ -91,6 +95,8 @@
 		
 		public function update($table, $find, $apply)
 		{
+			$this->prepareDir($table);
+			
 			$dir = $this->database_dir . $table;
 			$count = 0;
 			foreach(scandir($dir) as $k => $v)
@@ -112,6 +118,8 @@
 		
 		public function remove($table, $query)
 		{
+			$this->prepareDir($table);
+			
 			$list = $this->getAll($table, $query);
 			foreach($list as $k => $v)
 				unlink($this->database_dir . $table . \Fructum\Core::SEPARATOR . $v['id']);
