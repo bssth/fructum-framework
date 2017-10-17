@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * DBManager provides supporting of all databases by one project
+	 * DBManager provides support of all database types by one project
 	 */
 	
 	namespace Database;
@@ -9,7 +9,7 @@
 	class DBM
 	{
 		
-		public static $instance;
+		protected static $instance;
 		
 		/**
 		 * Get instance of driver
@@ -20,9 +20,7 @@
 				$classname = "\\Database\\DBM\\" . Config::db_type;
 				self::$instance = new $classname;
 				if(!(self::$instance instanceof \Database\DBM\DriverInterface))
-				{
 					throw new \Database\Exception("{$classname} is not instance of DBM interface");
-				}
 			}
 
 			return self::$instance;
