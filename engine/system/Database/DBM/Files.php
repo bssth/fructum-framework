@@ -45,7 +45,7 @@
 				$arr = unserialize(file_get_contents($dir . \Fructum\Core::SEPARATOR . $v));
 				
 				if(!count(array_diff_assoc($query, $arr)))
-					$results[] = $arr;
+					$results[$arr['id']] = $arr;
 			}
 			return count($results) ? $results : null;
 		}
