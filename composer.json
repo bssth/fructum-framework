@@ -1,0 +1,38 @@
+{
+    "name": "mikechip/fructum",
+    "description": "Son's of mother's friend framework",
+    "type": "project",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Boris Stelmakh",
+            "email": "mikael.chip@gmail.com",
+            "homepage": "https://mikechip.pp.ua/",
+            "role": "developer"
+        }
+    ],
+    "minimum-stability": "stable",
+    "keywords": ["framework", "cmf", "fructum"],
+    "homepage": "https://fructum.disaytid.ru/",
+    "support": {
+        "chat": "https://t.me/fructum",
+        "issues": "https://github.com/mikechip/fructum-framework/issues"
+    },
+    "require": {
+        "php" : ">=7.2",
+        "ext-mbstring": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fructum\\": "system/",
+            "Mod\\": "modules/",
+            "Hook\\": "hooks/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/mikechip/fructum-framework"
+        }
+    ]
+}
